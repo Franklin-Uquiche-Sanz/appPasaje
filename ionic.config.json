@@ -1,0 +1,7 @@
+{
+  "name": "appPasajes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
