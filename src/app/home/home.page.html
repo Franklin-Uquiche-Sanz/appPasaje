@@ -1,20 +1,37 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Cobro de Pasajes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Mapa de Google Maps -->
+  <div style="height: 400px; width: 100%;">
+    <div id="map" style="height: 100%; width: 100%;"></div>
+  </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Botón para calcular el cobro del viaje -->
+  <ion-button expand="full" (click)="iniciarCobro()">Calcular Cobro</ion-button>
+
+  <!-- Muestra el costo total del viaje si es mayor que 0 -->
+  <ion-card *ngIf="costoTotal > 0">
+    <ion-card-header>
+      <ion-card-title>Costo Total</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{ costoTotal | currency:'S/.' }}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mostrar el código QR si está disponible -->
+  <div *ngIf="showQRCode" style="text-align:center; margin-top: 20px;">
+    <qrcode [qrdata]="qrCodeData"></qrcode>
+    <p>Escanea este código para pagar con Yape</p>
+
+    <!-- Mostrar el enlace generado para verificar -->
+    <p>
+      Enlace para verificar: 
+      <a [href]="qrCodeData" target="_blank">{{ qrCodeData }}</a>
+    </p>
   </div>
 </ion-content>
